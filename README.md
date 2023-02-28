@@ -148,7 +148,7 @@ The `teams` table, only has two teams, `101 = syracuse` and `205 = johns hopkins
 The `players` table has 10 players for each team. Each player has a name, jersey number, shots taken, goals scored, along with their team id.
 
 
-## PART 3.1: The game stream's real-time box score
+### PART 3.1: The game stream's real-time box score
 
 Each time you run your code while the game is ongoing, you should write a new `boxscore` document to the `mongodb/sidearm/boxscores` collection. That way sidearm web developers can read the latest document 's contents to render a webpage for live box score stats while the game is going on.
 
