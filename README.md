@@ -65,14 +65,43 @@ To **stop all running containers**, run the following command:
 
 Free of other containers running you can start the environment of the midterm exam:
 
-To **start the environment**, run the following command:  
-```PS> docker-compose up -d```
+To **start the environment**, run the following commands:  
+
+1. Start the databases:  
+ ```PS> docker-compose up -d mssql mongodb minio```
+2. Make sure the databases are running  
+```PS> docker-compose ps```   
+(you should see `mssql`, `mongodb`, and `minio` all running)
+3. Start the tools:   
+```PS> docker-compose up -d drill jupyter```
+4. Make sure the tools are running  
+```PS> docker-compose ps```
+5. Finally, start the gamestream:   
+```PS> docker-compose up -d gamestream```
+4. Make sure the gamestream is running by looking at the logs:  
+```PS> docker-compose logs gamestream```   
+(you should see `gamestream` running, outputting game events. This will take time so you might need to run this command a few times to check progress.)
+5. Valid `gamesteam` output looks like this:
+```
+  | Added `s3` successfully.
+  | Bucket created successfully `s3/gamestreams`.
+  | Bucket created successfully `s3/boxscores`.
+  | Commands completed successfully.
+  | Commands completed successfully.
+  | INFO:root:Waiting for services...
+  | INFO:root:Bucket exists...ok
+  | INFO:root:Starting Game Data Stream. Delay: 1 second == 0.25 seconds.
+  | INFO:root:Wrote gamestream.txt to bucket gamestreams at 59:51
+```
+IF YOU DON'T SEE THIS, A SERVICE IS NOT RUNNING.
+
 
 To **stop the environment**, run the following command:  
 ```PS> docker-compose down```
 
 If you need to **start over from the very beginning** (erase the volumes) run the following command:  
 ```PS> docker-compose down -v```
+
 
 ### Managing the game stream
 The `gamestream` container simulates the live game. Each time the game stream is started:
