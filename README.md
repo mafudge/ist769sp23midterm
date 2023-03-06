@@ -258,9 +258,21 @@ For the highest possible marks, for each question, include:
 
 3. Write pyspark code (in SQL or DataFrame API) to display the gamestream. Label each of the columns in the gamestream with their appropriate columns names from the data dictionary.
 
-4. Write pyspark code (in SQL or DataFrame API) to group the gamestream by team/player id adding up the shots and goals. 
-    - Include the team score.
-    - Include the latest event id and the timestamp for that event id.
+4. Write pyspark code (in SQL or DataFrame API) to group the gamestream by team/player jersey number adding up the shots and goals. Specifically:
+    - Values dependent on team and player: total shots and goals for each player.
+    - Value dependent on only team: total goals (this should repeat for every row with the same team id)
+    - The last event id and timestamp for that point in time in the game  (every row should have the same event ID and as timestamp as these represent the point in time when the stats were compiled)
+
+    For example (sample - not the actual data):
+
+    | event_id | timestamp | team_id | jersey_number | shots | goals | team_goals |
+    |----------|-----------|---------|---------------|-------|-------|------------|
+    | 45       | 22:34     | 105     | 1             | 1     | 1     | 2          |
+    | 45       | 22:34     | 105     | 2             | 2     | 0     | 2          |
+    | 45       | 22:34     | 105     | 3             | 5     | 1     | 2          |
+    | 45       | 22:34     | 201     | 1             | 7     | 1     | 1          |
+    | 45       | 22:34     | 201     | 99            | 3     | 0     | 1          |
+    
 
 5. Write pyspark code (in SQL or DataFrame API) to join the output from question 4 with the player and team reference data `mssql` so that you have the data necessary for the box score. 
 
